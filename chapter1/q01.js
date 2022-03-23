@@ -16,7 +16,7 @@ function findSymmetricNumber(from = 10) {
       return checkSymmetry(numString) ? true : false;
     } else {
       return numString.reduce(
-        (prevBool, item) => prevBool && checkSymmetry(item),
+        (prevBool, item) => prevBool && symmetricInString(item),
         true
       );
     }
