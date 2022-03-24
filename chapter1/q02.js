@@ -19,8 +19,49 @@ function makeExpForCalc(num) {
   };
   return mathExp(changeToString(num));
 }
-
+function findReverse(from, to) {
+  const isReverseOf = (num) => {
+    if (typeof num !== "string") {
+      num = num.toString();
+    }
+    return (exp) => {
+      console.log(exp);
+      if (exp.length != num.length) return false;
+      return exp.split("").reduce((prevBool, char, i) => {
+        prevBool && char === num[num.length - 1 - i], true;
+      });
+    };
+  };
+  const collectResult = (bin = []) => {
+    return (item) => (!item ? bin : (bin.push(item), collectResult(bin)));
+  };
+  const result = collectResult();
+  const gather = (nums) => {
+    if (!Array.isArray(nums)) {
+      const reverseExps = makeExpForCalc(nums).filter((exp) =>
+        isReverseOf(nums)(eval(exp))
+      );
+      if (reverseExps && reverseExps.length > 0) {
+        reverseExps.forEach((exp) => {
+          result = result(`${nums}: ${eval(exp)} = ${exp}`);
+        });
+      } else {
+        return;
+      }
+    } else {
+      nums.forEach((exp) => gather(exp));
+      return;
+    }
+  };
+  const run = () => {
+    for (let i = from; i < to; i++) {
+      gather(i);
+    }
+  };
+  run();
+  return result();
+}
 function runQ02() {
-  console.log(makeExpForCalc(1321));
+  console.log(findReverse(5931, 5932));
 }
 runQ02();
