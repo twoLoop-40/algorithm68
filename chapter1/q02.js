@@ -20,6 +20,10 @@ function makeExpForCalc(num) {
   return mathExp(changeToString(num));
 }
 function findReverse(from, to) {
+  const containChar = (exp) => {
+    const reg = /\+|\-|\*/;
+    return reg.test(exp);
+  };
   const isReverseOf = (num) => {
     if (typeof num !== "string") {
       num = num.toString();
@@ -40,11 +44,10 @@ function findReverse(from, to) {
   let result = collectResult();
   const gather = (nums) => {
     if (!Array.isArray(nums)) {
-      const reverseExps = makeExpForCalc(nums).filter((exp) =>
-        isReverseOf(nums)(eval(exp))
-      );
+      const reverseExps = makeExpForCalc(nums)
+        .filter((exp) => containChar(exp))
+        .filter((exp) => isReverseOf(nums)(eval(exp)));
       if (reverseExps && reverseExps.length > 0) {
-        console.log(nums);
         reverseExps.forEach((exp) => {
           result = result(`${nums}: ${eval(exp)} = ${exp}`);
         });
@@ -65,6 +68,6 @@ function findReverse(from, to) {
   return result();
 }
 function runQ02() {
-  console.log(findReverse(1000, 10000));
+  console.log(findReverse(10000, 100000));
 }
 runQ02();
