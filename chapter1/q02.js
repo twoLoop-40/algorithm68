@@ -25,23 +25,26 @@ function findReverse(from, to) {
       num = num.toString();
     }
     return (exp) => {
-      console.log(exp);
-      if (exp.length != num.length) return false;
+      if (typeof exp !== "string") {
+        exp = exp.toString();
+      }
+      if (exp.length !== num.length) return false;
       return exp.split("").reduce((prevBool, char, i) => {
-        prevBool && char === num[num.length - 1 - i], true;
-      });
+        return prevBool && char === num[num.length - 1 - i];
+      }, true);
     };
   };
   const collectResult = (bin = []) => {
     return (item) => (!item ? bin : (bin.push(item), collectResult(bin)));
   };
-  const result = collectResult();
+  let result = collectResult();
   const gather = (nums) => {
     if (!Array.isArray(nums)) {
       const reverseExps = makeExpForCalc(nums).filter((exp) =>
         isReverseOf(nums)(eval(exp))
       );
       if (reverseExps && reverseExps.length > 0) {
+        console.log(nums);
         reverseExps.forEach((exp) => {
           result = result(`${nums}: ${eval(exp)} = ${exp}`);
         });
@@ -62,6 +65,6 @@ function findReverse(from, to) {
   return result();
 }
 function runQ02() {
-  console.log(findReverse(5931, 5932));
+  console.log(findReverse(1000, 10000));
 }
 runQ02();
