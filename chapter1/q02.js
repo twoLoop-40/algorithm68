@@ -68,6 +68,6 @@ function findReverse(from, to) {
   return result();
 }
 function runQ02() {
-  console.log(findReverse(10000, 100000));
+  console.log(findReverse(1000, 10000));
 }
 runQ02();
