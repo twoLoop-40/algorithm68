@@ -16,17 +16,22 @@ function cutBar(numOfWorker, barLength) {
     }
   }
   const makeWorker = (numOfWorker) => {
-    let tries = 0;
-    const cutter = (aBar = new Bar()) => {
-      if (aBar.currentBars >= aBar.limit) return tries;
+    const cutter = (aBar = new Bar(), tries = 0) => {
+      if (aBar.currentBars >= aBar.limit) return Promise.resolve(tries);
       if (numOfWorker >= aBar.currentBars) {
-        aBar.increaseBars((num) => 2 * num);
-        tries++;
-        return cutter(aBar);
+        return Promise.resolve(tries)
+          .then((tries) => {
+            aBar.increaseBars((num) => 2 * num);
+            return tries + 1;
+          })
+          .then((tries) => cutter(aBar, tries));
       } else {
-        aBar.increaseBars((num) => num + numOfWorker);
-        tries++;
-        return cutter(aBar);
+        return Promise.resolve(tries)
+          .then((tries) => {
+            aBar.increaseBars((num) => numOfWorker + num);
+            return tries + 1;
+          })
+          .then((tries) => cutter(aBar, tries));
       }
     };
     return cutter;
@@ -37,8 +42,8 @@ function cutBar(numOfWorker, barLength) {
 }
 
 function runQ04() {
-  console.log(cutBar(3, 20));
-  console.log(cutBar(5, 100));
+  cutBar(3, 20).then((tries) => console.log(tries));
+  cutBar(8, 1000000).then((tries) => console.log(tries));
 }
 
 runQ04();
