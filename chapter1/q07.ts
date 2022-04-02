@@ -15,9 +15,9 @@ function mirrorBinDate (date: Dateform) {
 	}
 	const isSymmtric: (arg: Dateform) => boolean =
 	 	(chars: Dateform): boolean => {
-		if (typeof date === 'number') return false
+		if (typeof chars === 'number') return false
 		else {
-			const { value } = date
+			const { value } = chars
 			return check(value)
 		}
 	}
