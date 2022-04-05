@@ -13,7 +13,6 @@ function findNotSameMenWomen (m: number, w: number) {
      }
    }
   }
- const twoDimBin = makeTwoDimStorage(m, w)
  const findPath = (men: number, women: number): number => {
    if (men == m && women == w) return 1
    if (men > m || women > w) return 0
@@ -25,11 +24,11 @@ function findNotSameMenWomen (m: number, w: number) {
      return twoDimBin(men, women, value)
    }
   }
+  const twoDimBin = makeTwoDimStorage(m, w)
   twoDimBin(0, 0, 1)
   if (m == w) return findPath(1, 0) + findPath(0, 1)
   if (m > w) return findPath(1, 0)
-  else return findPath(0, 1)
-  
+  else return findPath(0, 1)  
 }
 
 function runQ09 () {

@@ -62,7 +62,7 @@ function runRobotCleaner (count: number)  {
 			this.count = count
 		}
 	}
-	const samePath = (robot: Robot) => { // 여기도 다시 작업 records = [] 일 때 에러
+	const samePath = (robot: Robot) => { 
 		if (robot.records.length == 0) return false 
 		else {
 			return robot.records.some(record => {

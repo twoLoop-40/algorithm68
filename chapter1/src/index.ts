@@ -33,7 +33,7 @@
 }
 
 function runQ09 () {
-	console.log(findNotSameMenWomen(20, 10))
+	console.log(findNotSameMenWomen(6, 10))
 }
 
 runQ09()
