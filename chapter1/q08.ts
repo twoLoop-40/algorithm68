@@ -15,7 +15,7 @@ interface IDirection {
 }
 
 function runRobotCleaner (count: number)  {
-	const deepCopy = <T>(args: T): any => {
+	const deepCopy = <T, Q>(args: T | Q[]): any => {
 		if (!Array.isArray(args)) return args
 		else {
 			return [...args.map(deepCopy)]
