@@ -54,8 +54,6 @@ function maxSumCompare () {
 	const europianSum = range('europian').map((v: number) => sumMax('europian', v))
 	const americanSum = range('american').map((v: number) => sumMax('american', v))
 
-	console.log(europianSum)
-	console.log(americanSum)
 	const compare = (array1: number | number[], array2: number | number[],  
 		compFunc: (arg1: number, arg2:number) => boolean):any => {
 			if (typeof array1 == 'number' && typeof array2 == 'number') {
