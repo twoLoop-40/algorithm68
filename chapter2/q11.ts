@@ -1,4 +1,3 @@
-
 function fibFilter (argNum: number): number {
 	const digitSum = (num: number, result: number = 0): number => {
 		if (num == 0) return result
@@ -34,7 +33,7 @@ function fibFilter (argNum: number): number {
 	}
 	fibIter.next()
 	fibIter.next(argNum)
-	return filter(fibIter)
+	return filter<number[]>(fibIter)
 }
 
 function runQ11 () {
