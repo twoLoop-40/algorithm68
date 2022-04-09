@@ -24,7 +24,9 @@ function fibFilter (limit: number) {
 		const { value, done } = iter.next(decision)
 		if (done) return value
 		else {
-			decision = digitSumDivide(value, value)
+			if(!Array.isArray(value)) { 
+				decision = digitSumDivide(value, value) 
+			}
 			return filter(decision, iter)
 		}
 	}

@@ -1,39 +1,24 @@
-function fibFilter (limit: number) {
-	const digitSum = (num: number, result: number = 0): number => {
-		if (num == 0) return result
-		else return digitSum(
-			Math.floor(num / 10),
-			result + (num % 10)
-		)
+function findAllDigits (irrational: number): number {
+	const getFirstDigit = (betweenOneZero: number) => {
+		const head = Math.floor(betweenOneZero * 10)
+		const tail = betweenOneZero * 10 - head
+		return [head, tail]
 	}
-	const digitSumDivide = (divisor: number, dividend: number): boolean => {
-		return dividend % digitSum(divisor) === 0
-	}
-	const fibGen = function *() {
-		let prev = 1
-		let curr = 1
-		let result: number[] = []
-		while (result.length < limit) {
-			[prev, curr] = [curr, prev + curr]
-			let effect: boolean = yield curr
-			if (effect) result.push(curr)	
-		}
-		return result
-	}
-	const filter = (decision: boolean = false, iter: Generator<number, number[], boolean>): number[] => {
-		const { value, done } = iter.next(decision)
-		if (done) return value
-		else {
-			decision = digitSumDivide(value, value)
-			return filter(decision, iter)
+	const digitMaker = function *(irrational: number) {
+		let digits = 0
+		let head = 0
+		while (digits < 10) {
+			[head, irrational] = getFirstDigit(irrational)
+			digits = yield head
 		}
 	}
-	return filter(false, fibGen())
-	
+	const allDigits = (scaler: Generator<number, number, number>): number => {
+		
+	}
 }
-
 function runQ11 () {
-	console.log(fibFilter(5))
+	const IRRATIONAL_NUMBER = Math.sqrt(2)
+	console.log(findAllDigits(IRRATIONAL_NUMBER))
 }
 
 runQ11()
