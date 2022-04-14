@@ -1,11 +1,12 @@
-interface Add <T> {
-	(arg1: T, arg2: T) : T
+interface gauss <T> {
+	(arg0: T, calc: (arg2: T, arg3: T) => T): T
 }
 
-const addNumber: Add<number> = (num1, num2) => {
-	return num1 + num2
+const addGauss: gauss<number> = (count, calc) => {
+	if (count <= 0) return 0
+	else { 
+		return calc(count, addGauss(count - 1, calc))
+	}
 }
 
-const addString: Add<string> = (str1, str2) => {
-	return str1 + str2
-}
+console.log(addGauss(10, (a, b) => a + b))
