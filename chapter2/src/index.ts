@@ -1,12 +1,18 @@
-interface gauss <T> {
-	(arg0: T, calc: (arg2: T, arg3: T) => T): T
-}
-
-const addGauss: gauss<number> = (count, calc) => {
-	if (count <= 0) return 0
-	else { 
-		return calc(count, addGauss(count - 1, calc))
+function gauss (from: number, to: number): number {
+	const step = (a: number, b: number): number => {
+		return a + b
 	}
+	const iter = (count: number): number => {
+		if (count == to) return to
+		else {
+			return step (count, iter (count + 1))
+		}
+	}
+	return iter(from)
 }
 
-console.log(addGauss(10, (a, b) => a + b))
+function checkGauss (): void {
+	console.log(gauss(5, 11))
+}
+
+checkGauss()
